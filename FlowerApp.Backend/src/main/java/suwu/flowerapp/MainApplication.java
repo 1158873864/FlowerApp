@@ -36,7 +36,7 @@ public class MainApplication {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("NJUTakeOut API")
+                .title("FlowerApp API")
                 .termsOfServiceUrl("")
                 .contact(new Contact("Surevil", "https://github.com/zhanglingzhe0820", "445073309@qq.com"))
                 .version("1.0")
