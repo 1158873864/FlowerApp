@@ -1,18 +1,20 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/flowerDetail/flowerDetail",
     "pages/order/order",
     "pages/orderPreview/orderPreview",
     "pages/supplier/home/home",
     "pages/supplier/manageFood/manageFood",
     "pages/supplier/addFood/addFood",
     "pages/supplier/editFood/editFood",
-    "pages/supplier/chooseFood/chooseFood",
+     "pages/supplier/chooseFood/chooseFood",
     "pages/supplier/receiveOrder/receiveOrder",
     "pages/supplier/manageEvent/manageEvent",
     "pages/supplier/managePort/managePort",
     "pages/food/food",
-    "pages/comment/comment"
+    "pages/comment/comment",
+    "pages/flowerlist/flowerlist"
   ],
   "window": {
     "navigationBarTextStyle": "white",
