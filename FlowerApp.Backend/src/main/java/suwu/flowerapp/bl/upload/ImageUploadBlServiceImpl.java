@@ -1,12 +1,5 @@
 package suwu.flowerapp.bl.upload;
 
-import suwu.flowerapp.blservice.upload.ImageUploadBlService;
-import suwu.flowerapp.dataservice.food.FoodDataService;
-import suwu.flowerapp.dataservice.upload.ImageDataService;
-import suwu.flowerapp.entity.food.Food;
-import suwu.flowerapp.exception.FoodIdDoesNotExistException;
-import suwu.flowerapp.exception.SystemException;
-import suwu.flowerapp.response.upload.UploadImageResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,7 +12,6 @@ import suwu.flowerapp.exception.SystemException;
 import suwu.flowerapp.response.upload.UploadImageResponse;
 
 import java.io.IOException;
-
 
 @Service
 public class ImageUploadBlServiceImpl implements ImageUploadBlService {

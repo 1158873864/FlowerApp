@@ -20,20 +20,6 @@ import org.springframework.http.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import suwu.flowerapp.blservice.account.UserBlService;
-import suwu.flowerapp.dataservice.account.UserDataService;
-import suwu.flowerapp.entity.account.User;
-import suwu.flowerapp.exception.*;
-import suwu.flowerapp.publicdatas.account.Role;
-import suwu.flowerapp.response.user.AvatarSaveResponse;
-import suwu.flowerapp.response.user.OpenIdAndSessionKeyResponse;
-import suwu.flowerapp.response.user.PhoneNumberGetResponse;
-import suwu.flowerapp.response.user.UserLoginResponse;
-import suwu.flowerapp.security.jwt.JwtService;
-import suwu.flowerapp.security.jwt.JwtUser;
-import suwu.flowerapp.security.jwt.JwtUserDetailsService;
-import suwu.flowerapp.util.AESDecodeUtils;
-
 import java.util.ArrayList;
 
 @Service
@@ -77,7 +63,7 @@ public class UserBlServiceImpl implements UserBlService {
         }
         if (password.equals(USER_DEFAULT_PASSWORD)) {
             if (!userDataService.isUserExistent(username)) {
-                userDataService.saveUser(new User("", username, password, Role.USER, new ArrayList<>(), new ArrayList<>()));
+                userDataService.saveUser(new User("", username, password, Role.USER, 0, new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
             }
             JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(username);
             String token = jwtService.generateToken(jwtUser, EXPIRATION);
@@ -123,7 +109,7 @@ public class UserBlServiceImpl implements UserBlService {
     @Override
     public UserLoginResponse register(String username, String password) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        userDataService.saveUser(new User("", username, encoder.encode(password), Role.RESTAURANT, new ArrayList<>(), new ArrayList<>()));
+        userDataService.saveUser(new User("", username, encoder.encode(password), Role.RESTAURANT,0, new ArrayList<>(),  new ArrayList<>(), new ArrayList<>()));
         JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(username);
         String token = jwtService.generateToken(jwtUser, EXPIRATION);
         return new UserLoginResponse(token);

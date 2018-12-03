@@ -6,7 +6,6 @@ import suwu.flowerapp.response.user.OpenIdAndSessionKeyResponse;
 import suwu.flowerapp.response.user.PhoneNumberGetResponse;
 import suwu.flowerapp.response.user.UserLoginResponse;
 import org.springframework.stereotype.Service;
-import suwu.flowerapp.exception.*;
 
 @Service
 public interface UserBlService {

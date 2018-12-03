@@ -1,10 +1,9 @@
 package suwu.flowerapp.entity.account;
 
-import suwu.flowerapp.entity.food.Food;
+import suwu.flowerapp.entity.flower.Flower;
 import suwu.flowerapp.entity.order.Order;
+import suwu.flowerapp.entity.token.Token;
 import suwu.flowerapp.publicdatas.account.Role;
-import suwu.flowerapp.publicdatas.account.Role;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -22,21 +21,27 @@ public class User {
     private String password;
     @Column(name = "role")
     private Role role;
+    @Column(name = "credits")
+    private int credits;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    private List<Token> tokens;
     @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private List<Order> orders;
     @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
-    private List<Food> foods;
+    private List<Flower> flowers;
 
     public User() {
     }
 
-    public User(String avatarUrl, String username, String password, Role role, List<Order> orders, List<Food> foods) {
-        this.avatarUrl = avatarUrl;
-        this.username = username;
-        this.password = password;
-        this.role = role;
-        this.orders = orders;
-        this.foods = foods;
+    public User(String _avatarUrl, String _username, String _password, Role _role, int _credits, List<Token> _tokens, List<Order> _orders, List<Flower> _flowers) {
+        this.avatarUrl = _avatarUrl;
+        this.username = _username;
+        this.password = _password;
+        this.role = _role;
+        this.credits = _credits;
+        this.tokens = _tokens;
+        this.orders = _orders;
+        this.flowers = _flowers;
     }
 
     public int getId() {
@@ -79,6 +84,14 @@ public class User {
         this.role = role;
     }
 
+    public int getCredits(){ return credits; }
+
+    public void setCredits(int _credits){ this.credits = _credits; }
+
+    public List<Token> getTokens(){ return tokens; }
+
+    public void setTokens(List<Token> _tokens){ this.tokens = _tokens; }
+
     public List<Order> getOrders() {
         return orders;
     }
@@ -87,11 +100,11 @@ public class User {
         this.orders = orders;
     }
 
-    public List<Food> getFoods() {
-        return foods;
+    public List<Flower> getFoods() {
+        return flowers;
     }
 
-    public void setFoods(List<Food> foods) {
-        this.foods = foods;
+    public void setFoods(List<Flower> _flowers) {
+        this.flowers = _flowers;
     }
 }

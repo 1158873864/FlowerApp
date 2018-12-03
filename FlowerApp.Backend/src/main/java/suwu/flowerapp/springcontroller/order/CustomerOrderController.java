@@ -11,16 +11,12 @@ import org.springframework.web.bind.annotation.*;
 import suwu.flowerapp.blservice.order.OrderBlService;
 import suwu.flowerapp.exception.FoodIdDoesNotExistException;
 import suwu.flowerapp.exception.OrderIdDoesNotExistException;
-import suwu.flowerapp.exception.PrintFailException;
 import suwu.flowerapp.exception.SystemException;
-import suwu.flowerapp.parameters.order.OrderCommentParameters;
 import suwu.flowerapp.parameters.order.OrderFinalPriceParameters;
 import suwu.flowerapp.parameters.order.OrderSubmitParameters;
 import suwu.flowerapp.publicdatas.account.Role;
 import suwu.flowerapp.response.Response;
 import suwu.flowerapp.response.WrongResponse;
-import suwu.flowerapp.response.comment.CommentLoadResponse;
-import suwu.flowerapp.response.comment.OrderCommentResponse;
 import suwu.flowerapp.response.order.*;
 import suwu.flowerapp.util.UserInfoUtil;
 
@@ -141,54 +137,4 @@ public class CustomerOrderController {
         }
     }
 
-    @ApiOperation(value = "打印订单", notes = "打印订单")
-    @RequestMapping(value = "order/print/{orderId}", method = RequestMethod.POST)
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Success", response = OrderPrintResponse.class),
-            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
-            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
-    @ResponseBody
-    public ResponseEntity<Response> printOrder(@PathVariable(name = "orderId") int orderId) {
-        try {
-            return new ResponseEntity<>(orderBlService.printOrder(orderId), HttpStatus.OK);
-        } catch (OrderIdDoesNotExistException e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(e.getResponse(), HttpStatus.NOT_FOUND);
-        } catch (PrintFailException e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(e.getResponse(), HttpStatus.SERVICE_UNAVAILABLE);
-        }
-    }
-
-    @ApiOperation(value = "评论订单", notes = "评论订单")
-    @RequestMapping(value = "order/comment", method = RequestMethod.POST)
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Success", response = OrderCommentResponse.class),
-            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
-            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
-    @ResponseBody
-    public ResponseEntity<Response> commentOrder(@RequestBody OrderCommentParameters orderCommentParameters) {
-        try {
-            return new ResponseEntity<>(orderBlService.commentOrder(orderCommentParameters), HttpStatus.OK);
-        } catch (OrderIdDoesNotExistException e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(e.getResponse(), HttpStatus.NOT_FOUND);
-        }
-    }
-
-    @ApiOperation(value = "加载评论", notes = "加载所有评论")
-    @RequestMapping(value = "order/comment", method = RequestMethod.GET)
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Success", response = CommentLoadResponse.class),
-            @ApiResponse(code = 401, message = "Unauthorized", response = WrongResponse.class),
-            @ApiResponse(code = 500, message = "Failure", response = WrongResponse.class)})
-    @ResponseBody
-    public ResponseEntity<Response> loadComments() {
-        try {
-            return new ResponseEntity<>(orderBlService.loadComments(), HttpStatus.OK);
-        } catch (OrderIdDoesNotExistException e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(e.getResponse(), HttpStatus.NOT_FOUND);
-        }
-    }
 }
